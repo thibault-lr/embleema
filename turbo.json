@@ -1,0 +1,37 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "build": {
+      "outputs": [
+        "dist/**"
+      ],
+      "outputMode": "new-only"
+    },
+    "prettier": {
+      "outputs": [],
+      "outputMode": "new-only"
+    },
+
+    "lint": {
+      "outputs": [],
+      "outputMode": "new-only"
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "test": {
+      "outputs": [],
+      "cache": false
+    },
+    "ci": {
+      "dependsOn": [
+        "build",
+        "lint",
+        "prettier",
+        "test"
+      ],
+      "outputMode": "new-only"
+    }
+  }
+}

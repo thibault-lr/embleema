@@ -1,0 +1,30 @@
+{
+  "name": "eslint-config-embleema",
+  "version": "0.0.1",
+  "main": ".eslintrc.js",
+  "bin": {
+    "eslint": "../../node_modules/.bin/eslint"
+  },
+  "exports": {
+    "./ts": "./ts.eslintrc.js",
+    "./ts-front": "./tsfront.eslintrc.js",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "lint": "eslint --cache ."
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.1.1",
+    "@typescript-eslint/parser": "^7.1.1",
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^18.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jest": "^27.9.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-simple-import-sort": "^12.0.0",
+    "eslint-plugin-unicorn": "^51.0.1"
+  }
+}
