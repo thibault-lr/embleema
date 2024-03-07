@@ -7,7 +7,7 @@
   "scripts": {
     "build": "yarn turbo build",
     "dev": "yarn turbo dev --parallel",
-    "lint": "yarn tubo lint",
+    "lint": "yarn turbo lint",
     "ci": "yarn turbo ci",
     "prepare": "husky"
   },

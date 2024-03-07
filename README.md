@@ -40,3 +40,13 @@ packages
 ├── eslint-config-embleema   # Shared ESLint config
 ├── webapp                   # Patient front application
 ``` 
+
+
+### Tooling 
+
+#### Git hooks 
+
+The hooks are located in the `.husky` folder : 
+
+`git commit` will ensures that the linting pass.
+`git push` will ensures that the build pass.
