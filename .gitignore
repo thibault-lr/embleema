@@ -1,3 +1,6 @@
+# Compiled output
+/packages/*/dist
+
 # Dependencies
 node_modules
 
@@ -20,3 +23,5 @@ node_modules
 .pnp.*
 
 
+# IDE
+.vscode
