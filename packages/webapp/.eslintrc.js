@@ -1,5 +1,5 @@
 module.exports = {
-  extends: 'embleema/ts',
+  extends: 'embleema/ts-front',
   ignorePatterns: ['!**/*'],
   overrides: [
     {

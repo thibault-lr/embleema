@@ -1,9 +1,10 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "noEmit": false,
+    "outDir": "./dist",
     "module": "commonjs",
-    "types": ["jest", "node"]
+    "types": ["jest", "node"],
+    "declaration": true
   },
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts", "package.json", "assets/i18n/**/*.json"]
 }

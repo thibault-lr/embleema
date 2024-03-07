@@ -11,9 +11,14 @@
       "outputs": [],
       "outputMode": "new-only"
     },
+
+    "lint": {
+      "outputs": [],
+      "outputMode": "new-only"
+    },
     "dev": {
-      "dependsOn": ["^build"],
-      "cache": false
+      "cache": false,
+      "persistent": true
     },
     "test": {
       "outputs": [],
