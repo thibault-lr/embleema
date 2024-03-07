@@ -1,6 +1,9 @@
 # Dependencies
 node_modules
 
+# Turbo repo
+.turbo
+
 # Yarn
 .yarn/*
 !.yarn/patches
