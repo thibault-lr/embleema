@@ -7,9 +7,7 @@
   "scripts": {
     "build": "yarn turbo build",
     "dev": "yarn turbo dev --parallel",
-    "prettier": "yarn turbo prettier",
-    "lint": "yarn turbo lint",
-    "test": "yarn turbo test"
+    "ci": "yarn turbo ci"
   },
   "engines": {
     "node": "^20"

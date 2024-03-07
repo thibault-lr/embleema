@@ -23,6 +23,15 @@
     "test": {
       "outputs": [],
       "cache": false
+    },
+    "ci": {
+      "dependsOn": [
+        "build",
+        "lint",
+        "prettier",
+        "test"
+      ],
+      "outputMode": "new-only"
     }
   }
 }
