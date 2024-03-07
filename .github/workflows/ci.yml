@@ -21,7 +21,7 @@ jobs:
 
   ci:
     runs-on: ubuntu-latest
-    needs: install 
+    needs: [install] 
     steps:
       - uses: actions/checkout@v4
         with:
@@ -29,6 +29,8 @@ jobs:
       - name: Use Node.js 20
         uses: actions/setup-node@v4
         with:
-          node-version: 20    
+          node-version: 20   
+      - name: Install
+        run: yarn install 
       - name: Run all
         run: yarn turbo ci --continue
