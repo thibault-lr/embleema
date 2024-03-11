@@ -6,5 +6,5 @@
     "types": ["jest", "node"],
     "declaration": true
   },
-  "include": ["**/*.ts", "package.json", "assets/i18n/**/*.json"]
+  "include": ["**/*.ts"]
 }
