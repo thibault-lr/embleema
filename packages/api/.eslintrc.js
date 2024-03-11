@@ -3,7 +3,10 @@ module.exports = {
   ignorePatterns: ['!**/*'],
   overrides: [
     {
-      files: ['src/**/*.ts', 'test/**/*.ts'],
+      files: ['scripts/*.ts'],
+      rules: {
+        'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+      },
     },
   ],
 };
