@@ -12,3 +12,29 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
+model Patient {
+  id               String    @id @default(auto()) @map("_id") @db.ObjectId
+  firstName        String /// @encrypted
+  lastName         String /// @encrypted
+  socialSecurityId String    @unique /// @encrypted
+  // Required to allow indexing https://github.com/47ng/prisma-field-encryption?tab=readme-ov-file#filtering-using-where
+  socialSecurityHash String? @unique /// @encryption:hash(socialSecurityId)
+  sex              String /// @encrypted
+  bloodType        String /// @encrypted
+  condition        String /// @encrypted
+  usualPhysician   Physician
+  usualCareSite    CareSite
+  nextVisitDate    DateTime
+}
+
+type Physician {
+  firstName String
+  lastName  String
+  title     String
+}
+
+type CareSite {
+  name    String
+  address String
+}
