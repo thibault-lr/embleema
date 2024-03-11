@@ -1,0 +1,69 @@
+version: "3.8"
+
+services:
+ mongod1:
+    build:
+      context: ./mongo
+      dockerfile: Dockerfile
+    container_name: mongodb-rs-1
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_PORT: 27017
+    ports:
+      - 27017:27017
+    volumes:
+      - data1:/data/db
+      - ./mongo/replica.key:/data/replica.key
+
+
+ mongod2:
+    build:
+      context: ./mongo
+      dockerfile: Dockerfile
+    container_name: mongodb-rs-2
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_PORT: 27018
+    volumes:
+      - data2:/data/db
+      - ./mongo/replica.key:/data/replica.key
+
+ mongod3:
+    build:
+      context: ./mongo
+      dockerfile: Dockerfile
+    container_name: mongodb-rs-3
+    restart: always   
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+    volumes:
+      - data3:/data/db
+      - ./mongo/replica.key:/data/replica.key
+
+ mongo-setup:
+    image: mongo:7
+    container_name: mongo-setup
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_APP_DB: ${MONGO_APP_DB}
+      MONGO_APP_USER: ${MONGO_APP_USER}
+      MONGO_APP_PASSWORD: ${MONGO_APP_PASSWORD}
+    depends_on:
+      - mongod1
+      - mongod2
+      - mongod3
+    volumes:
+      - ./mongo/mongodb_rs_init.sh:/scripts/mongodb_rs_init.sh
+    restart: on-failure
+    entrypoint: ["/bin/bash", "-c", "/scripts/mongodb_rs_init.sh"]
+
+volumes:
+ data1:
+ data2:
+ data3:
