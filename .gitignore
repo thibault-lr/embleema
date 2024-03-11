@@ -15,7 +15,7 @@ node_modules
 !.yarn/sdks
 !.yarn/versions
 
-# Mongo 
+# Docker 
 docker/mongo/replica.key
 docker/.env
 
