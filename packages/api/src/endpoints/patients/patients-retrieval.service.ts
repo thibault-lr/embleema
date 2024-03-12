@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Patient } from '@prisma/client';
-import { PatientRepository } from 'src/repository/patient.repository';
+import { PatientRepository } from '@src/repository/patient.repository';
 
 @Injectable()
 export class PatientsRetrievalService {

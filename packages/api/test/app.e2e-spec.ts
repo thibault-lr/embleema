@@ -3,6 +3,8 @@ import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
 import { AppModule } from '../src/app.module';
 
+import { version } from '../package.json';
+
 describe('AppController (e2e)', () => {
   let app: INestApplication;
 
@@ -15,10 +17,10 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  it('/ (GET)', async () => {
+  it('/ (GET) returns the API version', async () => {
     const { body, status } = await request(app.getHttpServer()).get('/');
 
     expect(status).toEqual(200);
-    expect(body).toEqual('Hello');
+    expect(body).toEqual({ version });
   });
 });

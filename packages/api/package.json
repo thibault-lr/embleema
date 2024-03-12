@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "nest build --path tsconfig.build.json",
+    "build": "nest build --path tsconfig.app.json",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "prettier": "prettier --config ../../.prettierrc . --check --cache",
     "start": "nest start",
@@ -15,11 +15,12 @@
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "database:seed": "yarn ts-node scripts/database-seed.ts",
-    "test": "jest",
+    "test": "yarn run test:unit && yarn run test:e2e ",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:unit": "jest --testMatch '**/src/**/*.spec.ts'",
+    "test:e2e": "jest --testMatch '**/test/**/*.e2e-spec.ts'"
   },
   "dependencies": {
     "@nestjs/common": "^10.3.3",
@@ -27,7 +28,9 @@
     "@nestjs/core": "^10.3.3",
     "@nestjs/platform-express": "^10.3.3",
     "@prisma/client": "5.10.2",
+    "keycloak-connect": "^24.0.1",
     "luxon": "^3.4.4",
+    "nest-keycloak-connect": "^1.10.0",
     "prisma-field-encryption": "^1.5.2",
     "reflect-metadata": "^0.2.1",
     "rxjs": "^7.8.1"
@@ -58,22 +61,5 @@
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.3.2",
     "zx": "^7.2.3"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "ts"
-    ],
-    "rootDir": "src",
-    "testRegex": ".*\\.spec\\.ts$",
-    "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
-    },
-    "collectCoverageFrom": [
-      "**/*.(t|j)s"
-    ],
-    "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
   }
 }

@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { RepositoryModule } from 'src/repository/repository.module';
+import { RepositoryModule } from '@src/repository/repository.module';
 import { PatientsController } from './patients.controller';
 import { PatientsRetrievalService } from './patients-retrieval.service';
 

@@ -1,7 +1,7 @@
 version: "3.8"
 
 services:
- mongod1:
+  mongod1:
     build:
       context: ./mongo
       dockerfile: Dockerfile
@@ -18,7 +18,7 @@ services:
       - ./mongo/replica.key:/data/replica.key
 
 
- mongod2:
+  mongod2:
     build:
       context: ./mongo
       dockerfile: Dockerfile
@@ -32,7 +32,7 @@ services:
       - data2:/data/db
       - ./mongo/replica.key:/data/replica.key
 
- mongod3:
+  mongod3:
     build:
       context: ./mongo
       dockerfile: Dockerfile
@@ -45,7 +45,7 @@ services:
       - data3:/data/db
       - ./mongo/replica.key:/data/replica.key
 
- mongo-setup:
+  mongo-setup:
     image: mongo:7
     container_name: mongo-setup
     environment:
@@ -62,6 +62,22 @@ services:
       - ./mongo/mongodb_rs_init.sh:/scripts/mongodb_rs_init.sh
     restart: on-failure
     entrypoint: ["/bin/bash", "-c", "/scripts/mongodb_rs_init.sh"]
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:24.0.1
+    environment:
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      DB_VENDOR: h2
+    depends_on:
+      - mongo-setup
+    volumes:
+      - ./keycloak/realm.json:/opt/keycloak/data/import/realm.json
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+    command: start-dev --import-realm
+
 
 volumes:
  data1:

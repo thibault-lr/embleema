@@ -9,16 +9,12 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
 
   public constructor() {
     super();
-
   }
 
   public async onModuleInit(): Promise<void> {
     await this.$connect();
 
     // Easy hack to extend prisma before instantiation : https://github.com/prisma/prisma/issues/18628
-    Object.assign(this,
-      this.$extends(fieldEncryptionExtension()))
-
-    this.logger.debug('Prisma connected');
+    Object.assign(this, this.$extends(fieldEncryptionExtension()));
   }
 }

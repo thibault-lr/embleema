@@ -7,7 +7,6 @@ export class PatientRepository {
   public constructor(private readonly prismaService: PrismaService) {}
 
   public async findAll(): Promise<Patient[]> {
-
     const patients = await this.prismaService.patient.findMany();
 
     return patients;
