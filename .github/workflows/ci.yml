@@ -40,7 +40,7 @@ jobs:
         run: docker-compose -f "docker/docker-compose.keycloak-dev.yml" up -d --build
       - name: Run all
         env:
-          VITE_KEYCLOAK_AUTH_URL: http://localhost:8080/realms/test-iam
+          VITE_KEYCLOAK_AUTH_URL: http://localhost:8080/realms/embleema-iam
           VITE_KEYCLOAK_AUTH_REDIRECT_URL: http://localhost:5173/
-          VITE_KEYCOAK_CLIENT_ID: test-webapp      
+          VITE_KEYCOAK_CLIENT_ID: embleema-webapp      
         run: yarn turbo ci --continue
