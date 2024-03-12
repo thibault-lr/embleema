@@ -1,37 +1,102 @@
 # Docker 
 
 ## Architecture
-The current docker-compose will set up a MongoDB cluster with replica. This is necessary to work with (https://github.com/prisma/prisma/issues/8266)[Prisma ORM]. 
+
+- MongoDB
+- Keycloak
+
 
 ## Set up 
-Copy the .env.template
+Copy the `.env.template` file into a `.env` file and fill in the variables. You can use the following example:
 
+```
+MONGO_INITDB_ROOT_USERNAME=user
+MONGO_INITDB_ROOT_PASSWORD=root
+MONGO_APP_DB=embleema_db
+MONGO_APP_USER=embleema_user
+MONGO_APP_PASSWORD=embleema_password
 
-## Start the containers
+KEYCLOAK_ADMIN=admin
+KEYCLOAK_ADMIN_PASSWORD=admin
+```
 
-To start the containers, execute the command : 
+## Start the Containers
+
+To start the containers, execute the command:
 ```bash
 docker-compose up 
 ```
 
-This will start the 3 database nodes and set up a replicat set. The creation of the replicat set will be executed by the container `mongo-setup`
+This will start multiple containers:
+- [MongoDB](https://www.mongodb.com/) Replica Set: Mongo1, Mongo2, Mongo3
+  The current docker-compose will set up a MongoDB cluster with replica. This is necessary to work with [Prisma ORM](https://github.com/prisma/prisma/issues/8266).
 
-## Scripts
+
+- [Keycloak](https://www.keycloak.org/) IAM authenticator
+
+## Setup
+
+### Keycloak
+
+The `keycloak` folder contains a file `realm.json` that automatically sets up a default configuration: it creates a realm (`embleema-iam`), a client (`embleema-webapp`), and 2 users: `user` and `admin`.
+
+If you want other values, you need to update them directly inside the `realm.json` file. Be careful when editing the clients; the variables `redirectUris` must strictly match the HTTP server of the webapp as it's used for login redirection.
 
 
-### Create the database  and the role
+#### Testing
+
+You can access `http://localhost:8080/` and you will be able to login using the values of environment variables KEYCLOAK_ADMIN and KEYCLOAK_ADMIN_PASSWORD.
+
+### MongoDB
+
+The access to the MongoDB database will be made through an authentication table and will have be user scoped.
+
+#### Configuration
+
+You will have to create a little setup. You need to create a database on the MongoDB primary node (Mongod1) and create a user.
 
 ```bash
 docker-compose exec mongod1 mongosh -u <MONGO_INITDB_ROOT_USERNAME> -p <MONGO_INITDB_ROOT_PASSWORD>
 ```
 
+For example, if your database name is `embleema_db`:
 ```
-  use embleema_db;
-  db.createUser({
-      user: "myUser",
-      pwd: "myPassword",
-      roles: [
-          { role: "readWrite", db: "embleema_db" }
-      ]
-  });
+use embleema_db;
+db.createUser({
+    user: "embleema_user",
+    pwd: "embleema_password",
+    roles: [
+        { role: "readWrite", db: "embleema_db" }
+    ]
+});
 ```
+
+This would output : 
+```
+dbrs [direct: primary] test> use embleema_db;
+switched to db embleema_db
+dbrs [direct: primary] embleema_db> db.createUser({
+...     user: "embleema_user",
+...     pwd: "embleema_password",
+...     roles: [
+...         { role: "readWrite", db: "embleema_db" }
+...     ]
+... });
+{
+  ok: 1,
+  '$clusterTime': {
+    clusterTime: Timestamp({ t: 1710273194, i: 1 }),
+    signature: {
+      hash: Binary.createFromBase64('sbcIbRLwvYMayHQ4OzYCBJEInrE=', 0),
+      keyId: Long('7345566821275140102')
+    }
+  },
+  operationTime: Timestamp({ t: 1710273194, i: 1 })
+}
+```
+
+
+#### Testing the connection
+
+Based on the example above with the variables, the query string to connect to the database should be : 
+`mongodb://embleema_user:embleema_password@localhost:27017/embleema_db?directConnection=true&authSource=embleema_db`
