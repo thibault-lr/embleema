@@ -15,7 +15,7 @@ services:
       - 27017:27017
     volumes:
       - data1:/data/db
-      - ./mongo/replica.key:/data/replica.key
+      - ./mongo/sample-replica.key:/data/replica.key
 
 
   mongod2:
@@ -30,7 +30,7 @@ services:
       MONGO_PORT: 27018
     volumes:
       - data2:/data/db
-      - ./mongo/replica.key:/data/replica.key
+      - ./mongo/sample-replica.key:/data/replica.key
 
   mongod3:
     build:
@@ -43,7 +43,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
     volumes:
       - data3:/data/db
-      - ./mongo/replica.key:/data/replica.key
+      - ./mongo/sample-replica.key:/data/replica.key
 
   mongo-setup:
     image: mongo:7
