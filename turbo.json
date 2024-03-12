@@ -27,7 +27,8 @@
     "ci": {
       "dependsOn": [
         "build",
-        "lint"
+        "lint",
+        "prettier"
       ],
       "outputMode": "new-only"
     }
