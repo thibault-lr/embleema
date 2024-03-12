@@ -5,7 +5,7 @@ import { AppModule } from '../src/app.module';
 
 import { version } from '../package.json';
 
-describe('AppController (e2e)', () => {
+describe('GET /', () => {
   let app: INestApplication;
 
   beforeEach(async () => {
@@ -17,7 +17,7 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  it('/ (GET) returns the API version', async () => {
+  it('returns the API version', async () => {
     const { body, status } = await request(app.getHttpServer()).get('/');
 
     expect(status).toEqual(200);

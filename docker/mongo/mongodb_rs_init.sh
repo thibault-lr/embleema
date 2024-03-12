@@ -12,12 +12,10 @@ until mongosh --host ${m1}:${port} --eval 'quit(db.runCommand({ ping: 1 }).ok ? 
 done
 echo "###### Working ${m1} instance found, initiating user setup & initializing rs setup.."
 
-# setup user + pass and initialize replica sets
+setup user + pass and initialize replica sets
 mongosh --host ${m1}:${port} <<EOF
-const rootUser = '$MONGO_INITDB_ROOT_USERNAME';
-const rootPassword = '$MONGO_INITDB_ROOT_PASSWORD';
 const admin = db.getSiblingDB('admin');
-admin.auth(rootUser, rootPassword);
+admin.auth('$MONGO_INITDB_ROOT_USERNAME', '$MONGO_INITDB_ROOT_PASSWORD');
 
 const config = {
     "_id": "dbrs",
@@ -47,17 +45,17 @@ EOF
 
 echo "### Replicat set initialized"
 
+## rs.initiate() need some time to spread the config to the nodes
+sleep 20;
+
 # Setup Db + role
-mongosh --host ${m1}:${port} <<EOF
-const rootUser = '$MONGO_INITDB_ROOT_USERNAME';
-const rootPassword = '$MONGO_INITDB_ROOT_PASSWORD';
-  db = db.getSiblingDB('$MONGO_INITDB_APP_DB');
-  db.auth('$MONGO_INITDB_ROOT_USERNAME', '$MONGO_INITDB_ROOT_PASSWORD');
+mongosh --host ${m1}:${port} -u ${MONGO_INITDB_ROOT_USERNAME} -p ${MONGO_INITDB_ROOT_PASSWORD} <<EOF
+  db = db.getSiblingDB('$MONGO_APP_DB');
   db.createUser({
-      user: '$MONGO_INITDB_APP_USER',
-      pwd: '$MONGO_INITDB_APP_PASSWORD',
+      user: '$MONGO_APP_USER',
+      pwd: '$MONGO_APP_PASSWORD',
       roles: [
-          { role: "readWrite", db: "embleema_db" }
+          { role: "readWrite", db: '$MONGO_APP_DB' }
       ]
   });
 EOF
