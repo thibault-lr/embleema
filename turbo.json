@@ -26,7 +26,7 @@
       "persistent": true
     },
     "test": {
-      "dependsOn": ["postbuild"],
+      "dependsOn": ["build"],
       "outputs": [],
       "cache": false
     },
