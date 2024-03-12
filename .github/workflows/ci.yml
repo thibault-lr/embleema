@@ -22,6 +22,7 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     needs: [install] 
+
     steps:
       - uses: actions/checkout@v4
         with:
@@ -33,6 +34,10 @@ jobs:
       - name: Install
         run: yarn install 
       - name: Run pre-test containers
-        run: docker-compose -f "docker/docker-compose.keycloak.yml" up keycloak -d --build
+        run: docker-compose -f "docker/docker-compose.keycloak.yml" up -d --build
       - name: Run all
+        env:
+          VITE_KEYCLOAK_AUTH_URL: http://localhost:8080/realms/test-iam
+          VITE_KEYCLOAK_AUTH_REDIRECT_URL: http://localhost:5173/
+          VITE_KEYCOAK_CLIENT_ID: test-webapp      
         run: yarn turbo ci --continue
