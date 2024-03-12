@@ -1,7 +1,12 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
+    "prebuild": {
+      "outputs": [],
+      "outputMode": "new-only"
+    },
     "build": {
+      "dependsOn": ["prebuild"],
       "outputs": [
         "dist/**"
       ],
@@ -21,6 +26,7 @@
       "persistent": true
     },
     "test": {
+      "dependsOn": ["postbuild"],
       "outputs": [],
       "cache": false
     },
