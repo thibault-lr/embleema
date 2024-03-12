@@ -33,6 +33,6 @@ jobs:
       - name: Install
         run: yarn install 
       - name: Run pre-test containers
-        run: docker-compose -f "docker/docker-compose.yml" up keycloak -d --build
+        run: docker-compose -f "docker/docker-compose.keycloak.yml" up keycloak -d --build
       - name: Run all
         run: yarn turbo ci --continue
