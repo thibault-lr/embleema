@@ -34,6 +34,9 @@ jobs:
       - name: Install
         run: yarn install 
       - name: Run pre-test containers
+        env:
+          KEYCLOAK_ADMIN: admin
+          KEYCLOAK_ADMIN_PASSWORD: admin
         run: docker-compose -f "docker/docker-compose.keycloak-dev.yml" up -d --build
       - name: Run all
         env:
