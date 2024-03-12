@@ -30,6 +30,7 @@
     "@nestjs/platform-express": "^10.3.3",
     "@nestjs/swagger": "^7.3.0",
     "@prisma/client": "5.10.2",
+    "class-transformer": "^0.5.1",
     "keycloak-connect": "^24.0.1",
     "luxon": "^3.4.4",
     "nest-keycloak-connect": "^1.10.0",

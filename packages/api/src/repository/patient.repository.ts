@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { Patient } from '@prisma/client';
+import { Patient } from '@src/endpoints/patients/dto/patient.dto';
+
 import { PrismaService } from '../prisma/prisma.service';
+import { PatientMapper } from './mappers/patient.mapper';
 
 @Injectable()
 export class PatientRepository {
@@ -9,6 +11,6 @@ export class PatientRepository {
   public async findAll(): Promise<Patient[]> {
     const patients = await this.prismaService.patient.findMany();
 
-    return patients;
+    return patients.map(PatientMapper.fromPrismaPatient);
   }
 }

@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaClient } from '@prisma/client';
 import { PrismaService } from '@src/prisma/prisma.service';
 import { client } from '@src/prisma/prisma-client';
-import { PATIENT_MOCK } from 'test/mocks/patient';
+import { PATIENT_MOCK } from '@test/mocks/patient';
 import { PatientRepository } from './patient.repository';
 
 describe('PatientRepository', () => {

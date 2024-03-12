@@ -3543,6 +3543,7 @@ __metadata:
     "@types/supertest": "npm:^6.0.2"
     "@typescript-eslint/eslint-plugin": "npm:^7.1.1"
     "@typescript-eslint/parser": "npm:^7.1.1"
+    class-transformer: "npm:^0.5.1"
     commander: "npm:^12.0.0"
     eslint: "npm:^8.57.0"
     eslint-config-prettier: "npm:^9.1.0"
@@ -4402,6 +4403,13 @@ __metadata:
   version: 1.2.3
   resolution: "cjs-module-lexer@npm:1.2.3"
   checksum: 10/f96a5118b0a012627a2b1c13bd2fcb92509778422aaa825c5da72300d6dcadfb47134dd2e9d97dfa31acd674891dd91642742772d19a09a8adc3e56bd2f5928c
+  languageName: node
+  linkType: hard
+
+"class-transformer@npm:^0.5.1":
+  version: 0.5.1
+  resolution: "class-transformer@npm:0.5.1"
+  checksum: 10/750327e3e9a5cf233c5234252f4caf6b06c437bf68a24acbdcfb06c8e0bfff7aa97c30428184813e38e08111b42871f20c5cf669ea4490f8ae837c09f08b31e7
   languageName: node
   linkType: hard
 
@@ -5398,6 +5406,7 @@ __metadata:
     "@commitlint/cli": "npm:^19.0.3"
     "@commitlint/config-conventional": "npm:^19.0.3"
     "@types/jest": "npm:^29.5.12"
+    class-transformer: "npm:^0.5.1"
     eslint: "npm:^8.57.0"
     husky: "npm:^9.0.11"
     jest: "npm:^29.7.0"
