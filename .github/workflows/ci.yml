@@ -52,4 +52,5 @@ jobs:
           KEYCLOAK_CLIENT_ID: embleema-api
           KEYCLOAK_REALM: embleema-iam
           KEYCLOAK_CLIENT_SECRET: GbM9bBMW9W7LYLyndNQobrBNWVDvDX6C
+          PRISMA_FIELD_ENCRYPTION_KEY: k1.aesgcm256.PEkTo4C0zBhswRughc_dh10mX-58kCnuR25AEL1KrQY=
         run: yarn turbo ci --continue
