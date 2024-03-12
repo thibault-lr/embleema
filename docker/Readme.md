@@ -1,7 +1,5 @@
 # Docker 
 
-TODO : import realm https://www.keycloak.org/server/containers
-
 ## Architecture
 The current docker-compose will set up a MongoDB cluster with replica. This is necessary to work with (https://github.com/prisma/prisma/issues/8266)[Prisma ORM]. 
 
