@@ -13,6 +13,8 @@ module.exports = {
         '@typescript-eslint/no-explicit-any': 'off',
         'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
         'max-lines-per-function': 'off',
+        'import/no-default-export': 'off',
+
       },
     },
     {
