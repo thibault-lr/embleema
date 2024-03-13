@@ -21,7 +21,7 @@ describe('/GET /patients', () => {
     await app.init();
   });
 
-  afterAll(async () => {
+  beforeEach(async () => {
     await prismaClient.patient.deleteMany();
   });
 

@@ -21,9 +21,11 @@ describe('PatientRepository', () => {
   });
 
   afterAll(async () => {
-    await client.patient.deleteMany();
-
     await module.close();
+  });
+
+  beforeEach(async () => {
+    await client.patient.deleteMany();
   });
 
   describe('#findAll', () => {
