@@ -1,7 +1,7 @@
-import { Box, CircularProgress } from '@mui/material';
 import React, { useEffect } from 'react';
+import { Box, CircularProgress, Typography } from '@mui/material';
 import { useAuth } from 'react-oidc-context';
-// import Patient from './scopes/Patients';
+import { Home } from './pages/Home';
 
 function App() {
   const { isLoading, isAuthenticated, signinRedirect, user } = useAuth();
@@ -13,17 +13,20 @@ function App() {
   }, [isLoading, isAuthenticated, user]);
 
   return (
-    <>
-      <h1>Embleema</h1>
-
-      {isLoading && (
-        <Box display="flex" justifyContent="center">
-          <CircularProgress />
+    <div>
+      {(isLoading || !isAuthenticated) && (
+        <Box display="flex" justifyContent="center" alignItems="center" height="100vh" width="100vw">
+          <Box textAlign="center">
+            <CircularProgress />
+            <Typography variant="h6" marginTop={2}>
+              Loading...
+            </Typography>
+          </Box>
         </Box>
       )}
 
-      {isAuthenticated && <h1> Connected </h1>}
-    </>
+      {isAuthenticated && <Home />}
+    </div>
   );
 }
 

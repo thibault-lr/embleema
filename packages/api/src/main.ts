@@ -12,6 +12,7 @@ async function bootstrap(): Promise<void> {
 
   SwaggerModule.setup('doc', app, document);
 
+  app.enableCors({ origin: process.env.WEBAPP_ORIGIN_URL });
   await app.listen(3000);
 }
 bootstrap();
