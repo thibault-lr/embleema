@@ -1,1 +1,1 @@
-export type Patient = {};
+export * from './patient';

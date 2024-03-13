@@ -2,7 +2,7 @@ import { resolve } from 'path';
 import { defineConfig } from 'cypress';
 import vitePreprocessor from 'cypress-vite';
 
-  console.log(process.env)
+console.log(process.env);
 
 export default defineConfig({
   env: {
