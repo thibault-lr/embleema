@@ -36,13 +36,8 @@ jobs:
       - name: Run pre-test containers
         env:
           KEYCLOAK_ADMIN: admin
-          KEYCLOAK_ADMIN_PASSWORD: admin
-          MONGO_INITDB_ROOT_USERNAME: user
-          MONGO_INITDB_ROOT_PASSWORD: root
-          MONGO_APP_DB: embleema_db
-          MONGO_APP_USER: embleema_user
-          MONGO_APP_PASSWORD: embleema_password         
-        run: docker-compose -f "docker/docker-compose.yml" up -d --build
+          KEYCLOAK_ADMIN_PASSWORD: admin       
+        run: docker-compose -f "docker/docker-compose.keycloak-dev.yml" up -d --build
       - name: Run all
         env:
           VITE_KEYCLOAK_AUTH_URL: http://localhost:8080/realms/embleema-iam
@@ -53,5 +48,5 @@ jobs:
           KEYCLOAK_REALM: embleema-iam
           KEYCLOAK_CLIENT_SECRET: GbM9bBMW9W7LYLyndNQobrBNWVDvDX6C
           PRISMA_FIELD_ENCRYPTION_KEY: k1.aesgcm256.PEkTo4C0zBhswRughc_dh10mX-58kCnuR25AEL1KrQY=
-          DATABASE_URL: mongodb://embleema_user:embleema_password@localhost:27017/embleema_db?directConnection=true&authSource=embleema_db
+          DATABASE_URL: ${{secrets.TEST_DATABASE_URL}}
         run: yarn turbo ci --continue
