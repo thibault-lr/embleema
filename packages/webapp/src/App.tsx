@@ -1,6 +1,7 @@
 import { Box, CircularProgress } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useAuth } from 'react-oidc-context';
+// import Patient from './scopes/Patients';
 
 function App() {
   const { isLoading, isAuthenticated, signinRedirect, user } = useAuth();

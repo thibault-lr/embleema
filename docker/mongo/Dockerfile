@@ -10,9 +10,13 @@ ENV MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
 #  Auth key file
 COPY sample-replica.key /data/replica.key
 
+RUN ls -l /data
+
 # Needed permissions for keyFile : https://www.mongodb.com/docs/v7.0/tutorial/enforce-keyfile-access-control-in-existing-replica-set/
 RUN chmod 400 /data/replica.key
 RUN chown 999:999 /data/replica.key
+
+RUN ls -l /data
 
 EXPOSE ${MONGO_PORT}
 
