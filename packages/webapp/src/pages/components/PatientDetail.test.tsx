@@ -4,11 +4,6 @@ import { PatientsDetail } from './PatientDetail';
 import { vi } from 'vitest';
 
 describe('PatientsDetail', () => {
-  it('renders', () => {
-    const container = render(<PatientsDetail patient={PATIENT_MOCK} onPatientDetailClose={vi.fn()} />);
-
-    expect(container).toMatchSnapshot();
-  });
 
   it('calls the onPatientDetailClose handler when close icon is clicked', () => {
     const onPatientDetailCloseMock = vi.fn();

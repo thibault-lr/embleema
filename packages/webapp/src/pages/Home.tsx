@@ -6,6 +6,11 @@ import { Box, Grid } from '@mui/material';
 import { PatientsDetail } from './components/PatientDetail';
 import { PatientEntityMapper } from '../entities/patient.entity-mapper';
 import { Patient } from '../types';
+import { readFromEnv } from '@src/utils/env';
+
+
+const API_URL = readFromEnv('VITE_EMBLEEMA_API_URL')
+
 
 export function Home() {
   const { user } = useAuth();
@@ -13,7 +18,8 @@ export function Home() {
   const [patients, setPatients] = useState<Patient[]>([]);
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
 
-  const { get, response, loading } = useFetch('http://localhost:3000', {
+
+  const { get, response, loading } = useFetch(API_URL, {
     interceptors: {
       request: ({ options }) => {
         if (user?.access_token === undefined) {
