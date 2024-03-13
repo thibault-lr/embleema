@@ -28,7 +28,6 @@ describe('PatientRepository', () => {
 
   describe('#findAll', () => {
     it('returns the list of the patients', async () => {
-      await prismaClient.patient.count();
       await prismaClient.patient.create({ data: PATIENT_MOCK });
 
       const patients = await patientRepository.findAll();
