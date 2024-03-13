@@ -1,14 +1,6 @@
 import { AuthProviderNoUserManagerProps } from 'react-oidc-context';
 
-function readFromEnv(envKey: string): string {
-  const envValue = import.meta.env[envKey];
-
-  if (envValue === undefined) {
-    throw new Error(`Key ${envKey} is not defined in env`);
-  }
-
-  return envValue;
-}
+import { readFromEnv } from '@src/utils/env';
 
 export function getAuthProviderConfig(): AuthProviderNoUserManagerProps {
   return {

@@ -8,6 +8,14 @@
       "publicClient": true,
       "directAccessGrantsEnabled": true,
       "redirectUris": [ "http://localhost:5173/" ]
+    },
+    {
+      "clientId": "embleema-api",
+      "enabled": true,
+      "authorizationServicesEnabled": true,
+      "directAccessGrantsEnabled": true,
+      "publicClient": false,
+      "secret": "GbM9bBMW9W7LYLyndNQobrBNWVDvDX6C"
     }
   ],
   "users" : [

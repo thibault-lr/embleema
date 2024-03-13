@@ -51,50 +51,6 @@ You can access `http://localhost:8080/` and you will be able to login using the 
 
 The access to the MongoDB database will be made through an authentication table and will have be user scoped.
 
-#### Configuration
-
-You will have to create a little setup. You need to create a database on the MongoDB primary node (Mongod1) and create a user.
-
-```bash
-docker-compose exec mongod1 mongosh -u <MONGO_INITDB_ROOT_USERNAME> -p <MONGO_INITDB_ROOT_PASSWORD>
-```
-
-For example, if your database name is `embleema_db`:
-```
-use embleema_db;
-db.createUser({
-    user: "embleema_user",
-    pwd: "embleema_password",
-    roles: [
-        { role: "readWrite", db: "embleema_db" }
-    ]
-});
-```
-
-This would output : 
-```
-dbrs [direct: primary] test> use embleema_db;
-switched to db embleema_db
-dbrs [direct: primary] embleema_db> db.createUser({
-...     user: "embleema_user",
-...     pwd: "embleema_password",
-...     roles: [
-...         { role: "readWrite", db: "embleema_db" }
-...     ]
-... });
-{
-  ok: 1,
-  '$clusterTime': {
-    clusterTime: Timestamp({ t: 1710273194, i: 1 }),
-    signature: {
-      hash: Binary.createFromBase64('sbcIbRLwvYMayHQ4OzYCBJEInrE=', 0),
-      keyId: Long('7345566821275140102')
-    }
-  },
-  operationTime: Timestamp({ t: 1710273194, i: 1 })
-}
-```
-
 
 #### Testing the connection
 

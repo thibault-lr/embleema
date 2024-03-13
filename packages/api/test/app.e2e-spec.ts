@@ -3,7 +3,9 @@ import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
 import { AppModule } from '../src/app.module';
 
-describe('AppController (e2e)', () => {
+import { version } from '../package.json';
+
+describe('GET /', () => {
   let app: INestApplication;
 
   beforeEach(async () => {
@@ -15,10 +17,10 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  it('/ (GET)', async () => {
+  it('returns the API version', async () => {
     const { body, status } = await request(app.getHttpServer()).get('/');
 
     expect(status).toEqual(200);
-    expect(body).toEqual('Hello');
+    expect(body).toEqual({ version });
   });
 });

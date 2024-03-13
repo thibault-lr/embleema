@@ -2,7 +2,7 @@ module.exports = {
   extends: ['embleema/ts', 'plugin:react-hooks/recommended'],
   root: true,
   env: { browser: true, es2020: true },
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
+  ignorePatterns: ['dist', '.eslintrc.cjs', 'vite-end.d.ts'],
   parser: '@typescript-eslint/parser',
   overrides: [
     {

@@ -9,6 +9,6 @@
     "rootDir": ".",
     "emitDecoratorMetadata": true
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "package.json"],
   "exclude": ["**/*.spec.ts"]
 }

@@ -1,5 +1,7 @@
 import 'cypress-keycloak';
 
+import { PATIENT_MOCK } from './mocks/patient';
+
 describe('App authentication', () => {
   describe('Regarding non authenticated users', () => {
     it('redirects to Keycloak login page', () => {
@@ -26,12 +28,24 @@ describe('App authentication', () => {
       }).then(() => {
         cy.wait(2000);
       });
+
+      cy.intercept('GET', `${Cypress.env('VITE_EMBLEEMA_API_URL')}/patients`, {
+        statusCode: 200,
+        body: [PATIENT_MOCK],
+      }).as('getPatients');
     });
 
     it('successfully loads and displays the main title', () => {
       cy.visit('/');
 
-      cy.contains('h1', 'Connected', { timeout: 10000 });
+      cy.contains('h1', 'Patients', { timeout: 5_000 });
+    });
+
+    it('displays the list of the patients', () => {
+      cy.visit('/');
+      cy.wait('@getPatients');
+
+      cy.contains('William Miller');
     });
   });
 });
