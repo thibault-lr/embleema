@@ -53,4 +53,5 @@ jobs:
           KEYCLOAK_REALM: embleema-iam
           KEYCLOAK_CLIENT_SECRET: GbM9bBMW9W7LYLyndNQobrBNWVDvDX6C
           PRISMA_FIELD_ENCRYPTION_KEY: k1.aesgcm256.PEkTo4C0zBhswRughc_dh10mX-58kCnuR25AEL1KrQY=
+          DATABASE_URL: mongodb://embleema_user:embleema_password@localhost:27017/embleema_db?directConnection=true&authSource=embleema_db
         run: yarn turbo ci --continue
