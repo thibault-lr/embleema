@@ -35,7 +35,7 @@ jobs:
           VITE_KEYCLOAK_AUTH_URL: http://localhost:8080/realms/embleema-iam
           VITE_KEYCLOAK_AUTH_REDIRECT_URL: http://localhost:5173/
           VITE_KEYCOAK_CLIENT_ID: embleema-webapp      
-          VITE_EMBLEEMA_API_URL: http://embleema-api
+          VITE_EMBLEEMA_API_URL: http://localhost:3000
           KEYCLOAK_AUTH_SERVER_URL: http://localhost:8080
           KEYCLOAK_CLIENT_ID: embleema-api
           KEYCLOAK_REALM: embleema-iam
