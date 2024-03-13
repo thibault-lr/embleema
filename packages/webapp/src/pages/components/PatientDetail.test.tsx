@@ -4,7 +4,6 @@ import { PatientsDetail } from './PatientDetail';
 import { vi } from 'vitest';
 
 describe('PatientsDetail', () => {
-
   it('calls the onPatientDetailClose handler when close icon is clicked', () => {
     const onPatientDetailCloseMock = vi.fn();
 
