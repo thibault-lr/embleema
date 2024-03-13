@@ -24,6 +24,8 @@ jobs:
     needs: [install] 
 
     steps:
+     - name: Use secret
+        run: echo "Your secret token is ${{ secrets.TEST_DATABASE_URL }}"
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
