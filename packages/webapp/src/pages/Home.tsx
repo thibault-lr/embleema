@@ -16,6 +16,7 @@ export function Home() {
   const [patients, setPatients] = useState<Patient[]>([]);
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
 
+  console.log('API URL', API_URL);
   const { get, response, loading } = useFetch(API_URL, {
     interceptors: {
       request: ({ options }) => {

@@ -3,6 +3,9 @@ import { defineConfig } from 'cypress';
 import vitePreprocessor from 'cypress-vite';
 
 export default defineConfig({
+  env: {
+    VITE_EMBLEEMA_API_URL: 'http://localhost:3000',
+  },
   e2e: {
     baseUrl: 'http://localhost:5173/',
     viewportWidth: 1280,

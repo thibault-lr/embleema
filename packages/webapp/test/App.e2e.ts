@@ -29,7 +29,7 @@ describe('App authentication', () => {
         cy.wait(2000);
       });
 
-      cy.intercept('GET', `${process.env.VITE_EMBLEEMA_API_URL}/patients`, {
+      cy.intercept('GET', `${Cypress.env('VITE_EMBLEEMA_API_URL')}/patients`, {
         statusCode: 200,
         body: [PATIENT_MOCK],
       }).as('getPatients');
