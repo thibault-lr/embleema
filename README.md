@@ -42,10 +42,12 @@ These instructions will set up a local environment with a ready-to-use applicati
 
 To set up docker, please visit [Docker README](./docker/README.md).
 
+You now need to set up the [API](./packages/api/README.md#Configuration) and the [WebAPP](./packages/webapp/README.md#setup) environment variables. Then start the containers : 
 
-You now need to set up the [API](./packages/api/README.md) and the [WebAPP](./packages/webapp/README.md) environment variables
 
-Once the containers are start, you can run the command : 
+
+
+Once the dev containers are started, you can run the command at the project root : 
 ```shell
 yarn dev
 ```

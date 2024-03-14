@@ -27,8 +27,6 @@ services:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
       MONGO_PORT: 27018
-    volumes:
-      - ./mongo/data1:/data/db
 
   mongod3:
     build:
@@ -39,8 +37,6 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
-    volumes:
-      - ./mongo/data1:/data/db
 
   mongo-setup:
     image: mongo:7
@@ -77,5 +73,3 @@ services:
 
 volumes:
  data1:
- data2:
- data3:
