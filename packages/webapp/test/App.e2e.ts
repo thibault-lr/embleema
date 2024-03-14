@@ -57,7 +57,6 @@ describe('Patients', () => {
       cy.wait(2000);
     });
 
-    console.log(Cypress.env);
     cy.intercept('GET', `${Cypress.env('VITE_EMBLEEMA_API_URL')}/patients`, {
       statusCode: 200,
       body: [PATIENT_MOCK],

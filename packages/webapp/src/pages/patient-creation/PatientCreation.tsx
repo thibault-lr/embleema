@@ -35,7 +35,6 @@ export function PatientCreation() {
   const [snackbarMessage, setSnackbarMessage] = useState('');
 
   const handleSubmit = async (patient: CreatePatientDto) => {
-    console.log('post', patient);
     await post('/patients', patient);
 
     if (response.ok) {
