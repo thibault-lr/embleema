@@ -15,7 +15,7 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "database:seed": "yarn ts-node scripts/database-seed.ts",
+    "database:seed": "yarn ts-node scripts/database-seed.ts -f ./scripts/example-patients-data.json",
     "test": "yarn run test:unit && yarn run test:e2e ",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",

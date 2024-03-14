@@ -1,7 +1,7 @@
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { DataGrid, GridRowParams, GridValueGetterParams } from '@mui/x-data-grid';
+import { Patient } from 'embleema-domain';
 import { DateTime } from 'luxon';
-import { Patient } from '../../../types';
 
 interface PatientsTableProps {
   patients: Patient[];
@@ -21,7 +21,8 @@ const DETAILS_COLUMNS = [
     field: 'nextVisitDate',
     headerName: 'Next Visit Date',
     width: 200,
-    valueGetter: ({ row }: GridValueGetterParams<Patient>) => DateTime.fromISO(row.nextVisitDate).toJSDate(), // To make data sortable
+    valueGetter: ({ row }: GridValueGetterParams<Patient>) =>
+      row.nextVisitDate ? DateTime.fromISO(row.nextVisitDate).toJSDate() : undefined, // To make data sortable
   },
   {
     field: 'usualCareSiteName',
@@ -48,8 +49,7 @@ export function PatientsTable({ onPatientSelected, patients, patientSelected }: 
   };
 
   return (
-    <Box height={'80vh'} width={'100%'}>
-      {patientSelected === false && <Typography variant="h1">Patients</Typography>}
+    <Box height={'80vh'} width={'100%'} marginBottom={'200px'}>
       <DataGrid
         initialState={{ pagination: { paginationModel: { pageSize: 10 } } }}
         paginationMode="client"

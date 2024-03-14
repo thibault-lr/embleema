@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, CircularProgress, Typography } from '@mui/material';
 import { useAuth } from 'react-oidc-context';
 import { Patients } from './pages/patients/Patients';
@@ -7,8 +7,11 @@ import { PatientCreation } from './pages/patient-creation/PatientCreation';
 
 function AppLoader({ children }: { children: React.ReactElement }) {
   const { isLoading, isAuthenticated, signinRedirect, user } = useAuth();
+  const [redirectInitiated, setRedirectInitiated] = useState(false);
+
   useEffect(() => {
-    if (isLoading === false && isAuthenticated === false) {
+    if (isLoading === false && isAuthenticated === false && !redirectInitiated) {
+      setRedirectInitiated(true);
       signinRedirect();
     }
   }, [isLoading, isAuthenticated, user, signinRedirect]);

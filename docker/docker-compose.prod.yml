@@ -1,0 +1,120 @@
+version: "3.8"
+
+services:
+  mongod1:
+    build:
+      context: ./mongo
+      dockerfile: Dockerfile
+    container_name: mongodb-rs-1
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_PORT: 27017
+    ports:
+      - 27017:27017
+    volumes:
+      - data1:/data/db
+
+
+  mongod2:
+    build:
+      context: ./mongo
+      dockerfile: Dockerfile
+    container_name: mongodb-rs-2
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_PORT: 27018
+    volumes:
+      - data2:/data/db
+
+  mongod3:
+    build:
+      context: ./mongo
+      dockerfile: Dockerfile
+    container_name: mongodb-rs-3
+    restart: always   
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+    volumes:
+      - data3:/data/db
+
+  mongo-setup:
+    image: mongo:7
+    container_name: mongo-setup
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_APP_DB: ${MONGO_APP_DB}
+      MONGO_APP_USER: ${MONGO_APP_USER}
+      MONGO_APP_PASSWORD: ${MONGO_APP_PASSWORD}
+    depends_on:
+      - mongod1
+      - mongod2
+      - mongod3
+    volumes:
+      - ./mongo/mongodb_rs_init.sh:/scripts/mongodb_rs_init.sh
+    restart: on-failure
+    entrypoint: ["/bin/bash", "-c", "/scripts/mongodb_rs_init.sh"]
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:24.0.1
+    container_name: keycloak
+    environment:
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KC_HTTPS_CERTIFICATE_FILE: /opt/keycloak/conf/server.crt.pem
+      KC_HTTPS_CERTIFICATE_KEY_FILE: /opt/keycloak/conf/server.key.pem
+      DB_VENDOR: h2
+    volumes:
+      - ./keycloak/realm-prod.json:/opt/keycloak/data/import/realm.json
+      - ./keycloak/server.crt.pem:/opt/keycloak/conf/server.crt.pem
+      - ./keycloak/server.key.pem:/opt/keycloak/conf/server.key.pem
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+    command: start-dev --import-realm
+    networks:
+      - app-network    
+
+  api:
+    build: 
+      context: ..
+      dockerfile: ./packages/api/docker/Dockerfile
+    container_name: embleema-api
+    environment:    
+      NODE_ENV: production
+      KEYCLOAK_AUTH_SERVER_URL: https://keycloak:8080
+      KEYCLOAK_CLIENT_ID: embleema-api
+      KEYCLOAK_REALM: embleema-iam
+      KEYCLOAK_CLIENT_SECRET: secret
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network      
+
+  webapp:
+    depends_on:
+      - keycloak
+    build:
+      context: ..
+      dockerfile: ./packages/webapp/Dockerfile
+    container_name: webapp
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - app-network
+
+
+volumes:
+ data1:
+ data2:
+ data3:
+
+networks:
+  app-network:
+    driver: bridge

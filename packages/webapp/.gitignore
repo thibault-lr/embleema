@@ -1,3 +1,7 @@
+# SSL
+nginx/*.crt
+nginx/*.key
+
 # Logs
 logs
 *.log
@@ -22,3 +26,4 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
