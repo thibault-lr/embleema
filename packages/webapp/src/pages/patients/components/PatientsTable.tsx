@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { DataGrid, GridRowParams, GridValueGetterParams } from '@mui/x-data-grid';
 import { Patient } from 'embleema-domain';
 import { DateTime } from 'luxon';

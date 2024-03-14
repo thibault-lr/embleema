@@ -10,7 +10,7 @@ import 'reflect-metadata';
 import * as EmbleemaDomainModule from 'embleema-domain';
 
 describe('PatientCreationForm', () => {
-  it.only('does not submit the form if invalid', () => {
+  it('does not submit the form if invalid', () => {
     const onSubmitMock = vi.fn();
     const validatorSpy = vi.spyOn(EmbleemaDomainModule.PatientValidator, 'validatePatientEntity');
     render(<PatientCreationForm onSubmit={onSubmitMock} />);
