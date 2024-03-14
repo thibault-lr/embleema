@@ -4,6 +4,8 @@
 
 - MongoDB
 - Keycloak
+- Api (Node)
+- Webapp (Nginx)
 
 
 ## Set up 
@@ -43,6 +45,13 @@ The `keycloak` folder contains a file `realm.json` that automatically sets up a 
 If you want other values, you need to update them directly inside the `realm.json` file. Be careful when editing the clients; the variables `redirectUris` must strictly match the HTTP server of the webapp as it's used for login redirection.
 
 
+#### SSL
+You need to generate certificates to set up the SSL : 
+```
+cd keycloak;
+openssl req -newkey rsa:2048 -nodes \  -keyout server.key.pem -x509 -days 3650 -out server.crt.pem
+```
+
 #### Testing
 
 You can access `http://localhost:8080/` and you will be able to login using the values of environment variables KEYCLOAK_ADMIN and KEYCLOAK_ADMIN_PASSWORD.
@@ -56,3 +65,6 @@ The access to the MongoDB database will be made through an authentication table 
 
 Based on the example above with the variables, the query string to connect to the database should be : 
 `mongodb://embleema_user:embleema_password@localhost:27017/embleema_db?directConnection=true&authSource=embleema_db`
+
+
+

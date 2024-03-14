@@ -3,7 +3,7 @@ import { useAuth } from 'react-oidc-context';
 import 'reflect-metadata';
 import { useFetch } from 'use-http';
 import { PatientsTable } from './components/PatientsTable';
-import { Box, Button, Grid } from '@mui/material';
+import { Box, Button, Grid, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { Patient } from 'embleema-domain';
 
@@ -67,6 +67,7 @@ export function Patients() {
 
       {!loading && (
         <>
+          <Typography variant="h3"> Patients </Typography>
           <Box mb={2}>
             <Button variant="contained" onClick={handleFormOpen} id="btn-create-patient">
               Create a new patient

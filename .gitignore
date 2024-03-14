@@ -18,6 +18,7 @@ node_modules
 # Docker 
 docker/mongo/replica.key
 docker/.env
+docker/keycloak/*.pem
 
 # Eslint cache
 packages/**/.eslintcache

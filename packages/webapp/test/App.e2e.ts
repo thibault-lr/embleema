@@ -38,7 +38,7 @@ describe('App', () => {
     it('successfully loads and displays the main title', () => {
       cy.visit('/');
 
-      cy.contains('h1', 'Patients', { timeout: 5_000 });
+      cy.contains('h3', 'Patients', { timeout: 5_000 });
     });
   });
 });
