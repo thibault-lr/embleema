@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon';
-import { SexEnum, BloodTypeEnum } from '../../src/types';
+
+import { Patient, SexEnum, BloodTypeEnum } from 'embleema-domain';
 
 export const PATIENT_MOCK = {
   id: 'id',
@@ -19,4 +20,4 @@ export const PATIENT_MOCK = {
     address: '496 Main St, Anytown, AN 49521',
   },
   nextVisitDate: DateTime.utc().toISO(),
-};
+} satisfies Patient;

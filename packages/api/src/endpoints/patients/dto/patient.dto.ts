@@ -1,8 +1,11 @@
 /* eslint-disable max-classes-per-file */
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
+import { BloodTypeEnum, SexEnum } from 'embleema-domain';
 
-class UsualPhysician {
+// To not carry the NestJs dependencies to embleema-domain
+
+class DocumentedUsualPhysician {
   @ApiProperty({ example: 'Emily', description: 'The first name of the usual physician' })
   public firstName!: string;
 
@@ -13,7 +16,7 @@ class UsualPhysician {
   public title!: string;
 }
 
-class UsualCareSite {
+class DocumentedUsualCareSite {
   @ApiProperty({ example: 'Medical Center North', description: 'The name of the usual care site' })
   public name!: string;
 
@@ -21,7 +24,7 @@ class UsualCareSite {
   public address!: string;
 }
 
-export class Patient {
+export class BasePatient {
   @ApiProperty({ example: 'William', description: 'The first name of the patient' })
   public firstName!: string;
 
@@ -31,26 +34,34 @@ export class Patient {
   @ApiProperty({ example: '568-93-6214', description: 'The social security ID of the patient' })
   public socialSecurityId!: string;
 
-  @ApiProperty({ example: 'Female', description: 'The sex of the patient' })
-  public sex!: string;
+  @ApiProperty({ enum: SexEnum, example: SexEnum.FEMALE, description: 'The sex of the patient' })
+  public sex!: SexEnum;
 
-  @ApiProperty({ example: 'AB-', description: 'The blood type of the patient' })
-  public bloodType!: string;
+  @ApiProperty({ enum: BloodTypeEnum, example: BloodTypeEnum['A+'], description: 'The blood type of the patient' })
+  public bloodType!: BloodTypeEnum;
 
   @ApiProperty({ example: 'Hypertension', description: 'The medical condition of the patient' })
   public condition!: string;
 
-  @ApiProperty({ type: UsualPhysician, description: 'The usual physician of the patient' })
-  @(Type!(() => UsualPhysician))
-  public usualPhysician!: UsualPhysician;
+  @ApiProperty({ type: DocumentedUsualPhysician, description: 'The usual physician of the patient' })
+  @(Type!(() => DocumentedUsualPhysician))
+  public usualPhysician!: DocumentedUsualPhysician;
 
-  @ApiProperty({ type: UsualCareSite, description: 'The usual care site of the patient' })
-  @(Type!(() => UsualCareSite))
-  public usualCareSite!: UsualCareSite;
+  @ApiProperty({ type: DocumentedUsualCareSite, description: 'The usual care site of the patient' })
+  @(Type!(() => DocumentedUsualCareSite))
+  public usualCareSite!: DocumentedUsualCareSite;
 
   @ApiProperty({
-    example: '2023-01-01T00:00:00.000Z',
+    example: '2023-01-01',
     description: 'The next visit date to the physician in ISO format',
   })
-  public nextVisitDate!: string | null;
+  public nextVisitDate!: string | undefined;
 }
+
+export class DocumentedPatient extends BasePatient {
+  @ApiProperty({ example: 'William', description: 'The first name of the patient' })
+  public id!: string;
+}
+
+// To simplify
+export class DocumentedCreatePatientDto extends BasePatient {}

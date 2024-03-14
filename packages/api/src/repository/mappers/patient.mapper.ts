@@ -1,13 +1,15 @@
 import { DateTime } from 'luxon';
 
 import { Patient as PrismaPatient } from '@prisma/client';
-import { Patient } from '@src/endpoints/patients/dto/patient.dto';
+import { BloodTypeEnum, Patient, SexEnum } from 'embleema-domain';
 
 export namespace PatientMapper {
   export function fromPrismaPatient(patient: PrismaPatient): Patient {
     return {
       ...patient,
-      nextVisitDate: patient.nextVisitDate ? DateTime.fromJSDate(patient.nextVisitDate).toISO() : null,
+      sex: patient.sex as SexEnum,
+      bloodType: patient.bloodType as BloodTypeEnum,
+      nextVisitDate: patient.nextVisitDate ? DateTime.fromJSDate(patient.nextVisitDate).toISO()! : undefined,
     };
   }
 }

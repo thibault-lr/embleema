@@ -2075,6 +2075,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@remix-run/router@npm:1.15.3":
+  version: 1.15.3
+  resolution: "@remix-run/router@npm:1.15.3"
+  checksum: 10/43d402b4ad3dff6dee5c1bc0822aeeb4d885d11c74c45fca7f2f4d7e57853fddbbb813c372919bb3fcc63f95fbcffdd1d4ac1c406857ea07b9d09a09d0562c8e
+  languageName: node
+  linkType: hard
+
+"@rollup/pluginutils@npm:^4.1.2":
+  version: 4.2.1
+  resolution: "@rollup/pluginutils@npm:4.2.1"
+  dependencies:
+    estree-walker: "npm:^2.0.1"
+    picomatch: "npm:^2.2.2"
+  checksum: 10/503a6f0a449e11a2873ac66cfdfb9a3a0b77ffa84c5cad631f5e4bc1063c850710e8d5cd5dab52477c0d66cda2ec719865726dbe753318cd640bab3fff7ca476
+  languageName: node
+  linkType: hard
+
 "@rollup/rollup-android-arm-eabi@npm:4.12.1":
   version: 4.12.1
   resolution: "@rollup/rollup-android-arm-eabi@npm:4.12.1"
@@ -2538,6 +2555,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@testing-library/user-event@npm:^14.5.2":
+  version: 14.5.2
+  resolution: "@testing-library/user-event@npm:14.5.2"
+  peerDependencies:
+    "@testing-library/dom": ">=7.21.4"
+  checksum: 10/49821459d81c6bc435d97128d6386ca24f1e4b3ba8e46cb5a96fe3643efa6e002d88c1b02b7f2ec58da593e805c59b78d7fdf0db565c1f02ba782f63ee984040
+  languageName: node
+  linkType: hard
+
 "@tootallnate/quickjs-emscripten@npm:^0.23.0":
   version: 0.23.0
   resolution: "@tootallnate/quickjs-emscripten@npm:0.23.0"
@@ -2791,6 +2817,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/lodash@npm:^4.17.0":
+  version: 4.17.0
+  resolution: "@types/lodash@npm:4.17.0"
+  checksum: 10/2053203292b5af99352d108656ceb15d39da5922fc3fb8186e1552d65c82d6e545372cc97f36c95873aa7186404d59d9305e9d49254d4ae55e77df1e27ab7b5d
+  languageName: node
+  linkType: hard
+
 "@types/luxon@npm:^3.4.2":
   version: 3.4.2
   resolution: "@types/luxon@npm:3.4.2"
@@ -2989,6 +3022,13 @@ __metadata:
     "@types/methods": "npm:^1.1.4"
     "@types/superagent": "npm:^8.1.0"
   checksum: 10/4b67fb2d1bfbb7ff0a7dfaaf190cdf2e0014522615fb2dc53c214bdac95b4ee42696dd1df13332c90a7765cc52934c9cc0c428bf0f9e8189167aef01042e7448
+  languageName: node
+  linkType: hard
+
+"@types/validator@npm:^13.11.8":
+  version: 13.11.9
+  resolution: "@types/validator@npm:13.11.9"
+  checksum: 10/2d397c69293cc726e0cf1b4c74c563ca4e459b00f216f3ff0ac184c9648103be27169e8c67f85be9c6e7a3fcbb149c6add66a2547b185a1b25aa79e4b61261bd
   languageName: node
   linkType: hard
 
@@ -3677,6 +3717,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:^7.1.1"
     class-transformer: "npm:^0.5.1"
     commander: "npm:^12.0.0"
+    embleema-domain: "workspace:^"
     eslint: "npm:^8.57.0"
     eslint-config-prettier: "npm:^9.1.0"
     eslint-plugin-prettier: "npm:^5.1.3"
@@ -4553,6 +4594,17 @@ __metadata:
   version: 0.5.1
   resolution: "class-transformer@npm:0.5.1"
   checksum: 10/750327e3e9a5cf233c5234252f4caf6b06c437bf68a24acbdcfb06c8e0bfff7aa97c30428184813e38e08111b42871f20c5cf669ea4490f8ae837c09f08b31e7
+  languageName: node
+  linkType: hard
+
+"class-validator@npm:^0.14.1":
+  version: 0.14.1
+  resolution: "class-validator@npm:0.14.1"
+  dependencies:
+    "@types/validator": "npm:^13.11.8"
+    libphonenumber-js: "npm:^1.10.53"
+    validator: "npm:^13.9.0"
+  checksum: 10/0c34592a1cbdd5e9c35cd02f4babd94120339e875fc7627aa2bf5dffb45ecc373275e854389c6ff3d39781cddb85a18193b4e9e8f4d77d6d90e445fd0b8b8e11
   languageName: node
   linkType: hard
 
@@ -5542,6 +5594,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"embleema-domain@workspace:^, embleema-domain@workspace:packages/embleema-domain":
+  version: 0.0.0-use.local
+  resolution: "embleema-domain@workspace:packages/embleema-domain"
+  dependencies:
+    class-transformer: "npm:^0.5.1"
+    class-validator: "npm:^0.14.1"
+    eslint: "npm:^8.57.0"
+    prettier: "npm:^3.2.5"
+    tsup: "npm:^8.0.2"
+    typescript: "npm:^5.4.2"
+  languageName: unknown
+  linkType: soft
+
 "embleema@workspace:.":
   version: 0.0.0-use.local
   resolution: "embleema@workspace:."
@@ -6297,6 +6362,13 @@ __metadata:
   version: 5.3.0
   resolution: "estraverse@npm:5.3.0"
   checksum: 10/37cbe6e9a68014d34dbdc039f90d0baf72436809d02edffcc06ba3c2a12eb298048f877511353b130153e532aac8d68ba78430c0dd2f44806ebc7c014b01585e
+  languageName: node
+  linkType: hard
+
+"estree-walker@npm:^2.0.1":
+  version: 2.0.2
+  resolution: "estree-walker@npm:2.0.2"
+  checksum: 10/b02109c5d46bc2ed47de4990eef770f7457b1159a229f0999a09224d2b85ffeed2d7679cffcff90aeb4448e94b0168feb5265b209cdec29aad50a3d6e93d21e2
   languageName: node
   linkType: hard
 
@@ -8921,6 +8993,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"libphonenumber-js@npm:^1.10.53":
+  version: 1.10.58
+  resolution: "libphonenumber-js@npm:1.10.58"
+  checksum: 10/8ac5a23a8b37ad4a8e75de29e0436270272429e1deebf090257f23c67a23138938619822c260408c1ade7170e1859e4ced732b80011e38148ed9a0848dd9a850
+  languageName: node
+  linkType: hard
+
 "lilconfig@npm:^3.0.0":
   version: 3.1.1
   resolution: "lilconfig@npm:3.1.1"
@@ -10246,7 +10325,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"picomatch@npm:^2.0.4, picomatch@npm:^2.2.1, picomatch@npm:^2.2.3, picomatch@npm:^2.3.1":
+"picomatch@npm:^2.0.4, picomatch@npm:^2.2.1, picomatch@npm:^2.2.2, picomatch@npm:^2.2.3, picomatch@npm:^2.3.1":
   version: 2.3.1
   resolution: "picomatch@npm:2.3.1"
   checksum: 10/60c2595003b05e4535394d1da94850f5372c9427ca4413b71210f437f7b2ca091dbd611c45e8b37d10036fa8eade25c1b8951654f9d3973bfa66a2ff4d3b08bc
@@ -10671,6 +10750,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-router-dom@npm:^6.22.3":
+  version: 6.22.3
+  resolution: "react-router-dom@npm:6.22.3"
+  dependencies:
+    "@remix-run/router": "npm:1.15.3"
+    react-router: "npm:6.22.3"
+  peerDependencies:
+    react: ">=16.8"
+    react-dom: ">=16.8"
+  checksum: 10/868a530c3167e1903f170818c0162760b8fbe9b10a7a7a79e5998990df341cd7127ba7819af4a9105af72c13453c7c4d76b2b07a70b56fff012fa0508b51940e
+  languageName: node
+  linkType: hard
+
+"react-router@npm:6.22.3":
+  version: 6.22.3
+  resolution: "react-router@npm:6.22.3"
+  dependencies:
+    "@remix-run/router": "npm:1.15.3"
+  peerDependencies:
+    react: ">=16.8"
+  checksum: 10/df3948afd6500faf4b82a72375b9177536d878d54cad18e20a175efcbfdd0d94852aac59660d786946636ed325284d94a8f46652d898df304d6a29c9a3932afd
+  languageName: node
+  linkType: hard
+
 "react-transition-group@npm:^4.4.5":
   version: 4.4.5
   resolution: "react-transition-group@npm:4.4.5"
@@ -10975,6 +11078,18 @@ __metadata:
   bin:
     rimraf: bin.js
   checksum: 10/063ffaccaaaca2cfd0ef3beafb12d6a03dd7ff1260d752d62a6077b5dfff6ae81bea571f655bb6b589d366930ec1bdd285d40d560c0dae9b12f125e54eb743d5
+  languageName: node
+  linkType: hard
+
+"rollup-plugin-swc@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "rollup-plugin-swc@npm:0.2.1"
+  dependencies:
+    "@rollup/pluginutils": "npm:^4.1.2"
+  peerDependencies:
+    "@swc/core": ">=1.0"
+    rollup: ">=1.5.0"
+  checksum: 10/0af3d718f001d6dd7957626e26d7a83959a2febc6f1698066d68e8d1f4bab4ff4d87e047fc794b51f531490c1d1d01870d993de067758c95281030ba781c47ef
   languageName: node
   linkType: hard
 
@@ -12860,6 +12975,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"validator@npm:^13.9.0":
+  version: 13.11.0
+  resolution: "validator@npm:13.11.0"
+  checksum: 10/4bf094641eb71729c06a42d669840e7189597ba655a8264adabac9bf03f95cd6fde5fbc894b0a13ee861bd4a852f56d2afdc9391aeaeb3fc0f9633a974140e12
+  languageName: node
+  linkType: hard
+
 "vary@npm:^1, vary@npm:~1.1.2":
   version: 1.1.2
   resolution: "vary@npm:1.1.2"
@@ -12890,6 +13012,16 @@ __metadata:
   bin:
     vite-node: vite-node.mjs
   checksum: 10/d6ca8cd5b84768f9a0f12d4327a6aca5200001bd9111991df89ad742e059566a95f8298047af7144ca128120fc67cbd7d37b3fda9700ab07f8fc130d2ad58665
+  languageName: node
+  linkType: hard
+
+"vite-plugin-babel@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "vite-plugin-babel@npm:1.2.0"
+  peerDependencies:
+    "@babel/core": ^7.0.0
+    vite: ^2.7.0 || ^3.0.0 || ^4.0.0 || ^5.0.0
+  checksum: 10/44448db8e3f9e59dcd928cb21e32c58d2c0a1bd5656113fc5ed8fb65bb166a2dce58f8797a07f598b7a7251cf7eb21369b873ee4586162ed8fae1ce4bd54c95a
   languageName: node
   linkType: hard
 
@@ -13055,6 +13187,8 @@ __metadata:
     "@testing-library/cypress": "npm:^10.0.1"
     "@testing-library/jest-dom": "npm:^6.4.2"
     "@testing-library/react": "npm:^14.2.1"
+    "@testing-library/user-event": "npm:^14.5.2"
+    "@types/lodash": "npm:^4.17.0"
     "@types/react": "npm:^18.2.64"
     "@types/react-dom": "npm:^18.2.21"
     "@typescript-eslint/eslint-plugin": "npm:^7.1.1"
@@ -13063,20 +13197,26 @@ __metadata:
     cypress: "npm:^13.6.6"
     cypress-keycloak: "npm:^2.0.1"
     cypress-vite: "npm:^1.5.0"
+    embleema-domain: "workspace:^"
     eslint: "npm:^8.57.0"
     eslint-plugin-react-hooks: "npm:^4.6.0"
     eslint-plugin-react-refresh: "npm:^0.4.5"
     jsdom: "npm:^24.0.0"
+    lodash: "npm:^4.17.21"
     luxon: "npm:^3.4.4"
     oidc-client-ts: "npm:^3.0.1"
     prettier: "npm:^3.2.5"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     react-oidc-context: "npm:^3.0.0"
+    react-router-dom: "npm:^6.22.3"
+    reflect-metadata: "npm:^0.2.1"
+    rollup-plugin-swc: "npm:^0.2.1"
     start-server-and-test: "npm:^2.0.3"
     typescript: "npm:^5.3.2"
     use-http: "npm:^1.0.28"
     vite: "npm:^5.1.5"
+    vite-plugin-babel: "npm:^1.2.0"
     vitest: "npm:^1.3.1"
   languageName: unknown
   linkType: soft

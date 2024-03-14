@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { Patient } from 'embleema-domain';
 import { PatientRepository } from '@src/repository/patient.repository';
-import { Patient } from './dto/patient.dto';
 
 @Injectable()
 export class PatientsRetrievalService {
