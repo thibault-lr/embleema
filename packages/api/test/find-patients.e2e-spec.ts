@@ -1,13 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
+import { DateTime } from 'luxon';
 import { client as prismaClient } from '@src/prisma/prisma-client';
 
 import { AppModule } from '../src/app.module';
 import { generateAuthToken } from './utils/generate-token';
 import { PATIENT_MOCK } from './mocks/patient';
-
-// const prismaClient = new PrismaClient().$extends(fieldEncryptionExtension());
 
 describe('/GET /patients', () => {
   let app: INestApplication;
@@ -33,7 +32,9 @@ describe('/GET /patients', () => {
 
   it('/returns the list of patients', async () => {
     const authToken = await generateAuthToken();
-    await prismaClient.patient.create({ data: PATIENT_MOCK });
+    await prismaClient.patient.create({
+      data: { ...PATIENT_MOCK, nextVisitDate: DateTime.fromFormat(PATIENT_MOCK.nextVisitDate, 'YYYY-MM-DD').toISO()! },
+    });
 
     const { body, status } = await request(app.getHttpServer()).get('/patients').auth(authToken, { type: 'bearer' });
 

@@ -52,7 +52,7 @@ export function PatientCreationForm({ onSubmit }: PatientCreationProps) {
       // console.log(validatedPatient, patient)
       onSubmit(validatedPatient);
     } catch (formErrors) {
-      // console.log(formErrors)
+      console.log(formErrors);
 
       // Ideally it should be redered to UI
       alert('Errors in the form, check the console for the details');

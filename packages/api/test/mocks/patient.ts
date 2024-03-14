@@ -1,5 +1,3 @@
-import { DateTime } from 'luxon';
-
 export const PATIENT_MOCK = {
   firstName: 'William',
   lastName: 'Miller',
@@ -16,5 +14,5 @@ export const PATIENT_MOCK = {
     name: 'Medical Center North',
     address: '496 Main St, Anytown, AN 49521',
   },
-  nextVisitDate: DateTime.utc().toISO(),
+  nextVisitDate: '2024-05-19',
 };
