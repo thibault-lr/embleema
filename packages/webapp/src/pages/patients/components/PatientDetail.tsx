@@ -1,6 +1,6 @@
 import { Box, Typography, Paper, IconButton, Grid, TextField } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { Patient } from '../../types';
+import { Patient } from '../../../types';
 
 interface PatientsDetailProps {
   patient: Patient;
