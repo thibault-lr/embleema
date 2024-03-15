@@ -38,16 +38,16 @@ export function Patients() {
   });
 
   useEffect(() => {
+    const initializePatients = async () => {
+      const responsePatients = await get('/patients');
+  
+      if (response.ok) {
+        setPatients(responsePatients);
+      }
+    };
+
     initializePatients();
   }, []);
-
-  const initializePatients = async () => {
-    const responsePatients = await get('/patients');
-
-    if (response.ok) {
-      setPatients(responsePatients);
-    }
-  };
 
   const handlePatientSelected = (patient: Patient) => {
     setSelectedPatient(patient);
