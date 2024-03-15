@@ -14,7 +14,9 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - data1:/data/db
+      - ./mongo/data1:/data/db
+    networks:
+      - app-network      
 
 
   mongod2:
@@ -27,8 +29,8 @@ services:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
       MONGO_PORT: 27018
-    volumes:
-      - data2:/data/db
+    networks:
+      - app-network      
 
   mongod3:
     build:
@@ -39,8 +41,8 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
-    volumes:
-      - data3:/data/db
+    networks:
+      - app-network
 
   mongo-setup:
     image: mongo:7
@@ -66,8 +68,10 @@ services:
     environment:
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KEYCLOAK_HOTNAME: keycloak
       KC_HTTPS_CERTIFICATE_FILE: /opt/keycloak/conf/server.crt.pem
       KC_HTTPS_CERTIFICATE_KEY_FILE: /opt/keycloak/conf/server.key.pem
+      KC_HOSTNAME: keycloak
       DB_VENDOR: h2
     volumes:
       - ./keycloak/realm-prod.json:/opt/keycloak/data/import/realm.json
@@ -87,10 +91,11 @@ services:
     container_name: embleema-api
     environment:    
       NODE_ENV: production
-      KEYCLOAK_AUTH_SERVER_URL: https://keycloak:8080
+      KEYCLOAK_AUTH_SERVER_URL: https://keycloak:8443
       KEYCLOAK_CLIENT_ID: embleema-api
       KEYCLOAK_REALM: embleema-iam
       KEYCLOAK_CLIENT_SECRET: secret
+      DATABASE_URL: "mongodb://embleema_user:embleema_password@host.docker.internal:27017/embleema_db?directConnection=true&authSource=embleema_db"      
     ports:
       - "3000:3000"
     networks:
@@ -112,8 +117,6 @@ services:
 
 volumes:
  data1:
- data2:
- data3:
 
 networks:
   app-network:

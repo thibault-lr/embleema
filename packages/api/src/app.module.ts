@@ -7,6 +7,18 @@ import { PrismaModule } from './prisma/prisma.module';
 import { PatientsModule } from './endpoints/patients/patients.module';
 import { ApiConfiguration } from './types';
 
+// For example only, disable AUTH guard in prod (:D)
+// Issue with Keycloak, auth request always returns 401
+const providers =
+  process.env.NODE_ENV === 'production'
+    ? []
+    : [
+        {
+          provide: APP_GUARD,
+          useClass: AuthGuard,
+        },
+      ];
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -27,11 +39,6 @@ import { ApiConfiguration } from './types';
     }),
   ],
   controllers: [AppController],
-  providers: [
-    {
-      provide: APP_GUARD,
-      useClass: AuthGuard,
-    },
-  ],
+  providers,
 })
 export class AppModule {}

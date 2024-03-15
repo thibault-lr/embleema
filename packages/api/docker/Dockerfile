@@ -25,5 +25,7 @@ COPY ./packages/api/docker/localhost.key ./packages/api/dist/src/certs/localhost
 
 
 
-
+ENV NODE_DEBUG=http \
+    NODE_TLS_REJECT_UNAUTHORIZED=0
+    
 CMD ["node", "./packages/api/dist/src/main.js"]

@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { PATIENT_MOCK } from '@test/mocks/patient';
-import { screen, render, fireEvent } from '@testing-library/react';
+import { screen, render, fireEvent, findByTestId } from '@testing-library/react';
 import { PatientCreationForm } from './PatientCreationForm';
 import userEvent from '@testing-library/user-event';
 
@@ -21,15 +21,16 @@ describe('PatientCreationForm', () => {
     expect(validatorSpy).toHaveBeenCalled();
   });
 
-  it('displays a window error message if invalid', () => {
+  it('displays a window error message if invalid', async () => {
     const onSubmitMock = vi.fn();
-    const windowSpy = vi.spyOn(window, 'alert');
-    render(<PatientCreationForm onSubmit={onSubmitMock} />);
 
+    const { findByTestId } = render(<PatientCreationForm onSubmit={onSubmitMock} />);
     fireEvent.click(screen.getByRole('button'));
 
+    const firstName = await findByTestId('form-field-firstName');
+
+    expect(firstName).toHaveAttribute('aria-invalid', 'true');
     expect(onSubmitMock).not.toHaveBeenCalled();
-    expect(windowSpy).toHaveBeenCalled();
   });
 
   it('submits the form ', async () => {

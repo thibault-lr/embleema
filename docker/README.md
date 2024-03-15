@@ -32,8 +32,6 @@ docker-compose up
 This will start multiple containers:
 - [MongoDB](https://www.mongodb.com/) Replica Set: Mongo1, Mongo2, Mongo3
   The current docker-compose will set up a MongoDB cluster with replica. This is necessary to work with [Prisma ORM](https://github.com/prisma/prisma/issues/8266).
-
-
 - [Keycloak](https://www.keycloak.org/) IAM authenticator
 
 ## Setup
