@@ -9,7 +9,7 @@ import useFetch from 'use-http';
 function AppLoader({ children }: { children: React.ReactElement }) {
   const { isLoading, isAuthenticated, signinRedirect, user } = useAuth();
   const [redirectInitiated, setRedirectInitiated] = useState(false);
-  
+
   useEffect(() => {
     if (isLoading === false && isAuthenticated === false && !redirectInitiated) {
       setRedirectInitiated(true);

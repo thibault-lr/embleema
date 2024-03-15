@@ -23,14 +23,15 @@ KEYCLOAK_CLIENT_SECRET=GbM9bBMW9W7LYLyndNQobrBNWVDvDX6C
 
 #### Keycloak
 
-The authentication management is handles by keycloak. The API uses his own client to valide the tokens sent to the front end.
-The difference is that the API client contains a *secret* key. You should change the SECRET in production and retrieve it on the keycloak app (http://localhost:8080) using your master login.
+The authentication management is handles by keycloak. The API uses his own client to valide the tokens sent to the front
+end. The difference is that the API client contains a _secret_ key. You should change the SECRET in production and
+retrieve it on the keycloak app (http://localhost:8080) using your master login.
 
 To make things faster to set up, a secret is already set in the .env file.
 
 #### Prisma and Encryption
 
-All the fields inserted to the database are encrypted, thus an encryption Key is needed. 
+All the fields inserted to the database are encrypted, thus an encryption Key is needed.
 
 ### Start the API in development mode
 
@@ -45,19 +46,18 @@ Build the application:
 ```shell
 yarn build
 ```
+
 ## API doc
 
 ```shell
 yarn dev
 ```
 
-And access : 
+And access :
 
 ```
 http://localhost:3000/doc
 ```
-
-
 
 ## Deployment with SSL
 

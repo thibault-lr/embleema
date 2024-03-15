@@ -9,11 +9,11 @@ export type CreatePatientFormDto = Omit<CreatePatientDto, 'usualPhysician' | 'us
 };
 
 export interface CreatePatientFormError {
-  target: unknown; 
-  value: unknown; 
+  target: unknown;
+  value: unknown;
   property: string;
   children: CreatePatientFormError[];
   constraints?: {
-     [key: string]: string;
+    [key: string]: string;
   };
- }
+}

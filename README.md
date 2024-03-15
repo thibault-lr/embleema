@@ -63,9 +63,28 @@ http://localhost:5173/ (webapp)
 
 
 
-### Run production environment (Pending)
+### Run production environment
 
-This aims to run all the containers under a secured connection (TLS). You first need to update the new variables, first go to both the [API](./packages/api/README.md) and the [WebAPP](./packages/webapp/README.md) to see the SSL part documentation.
+#### Update the /etc/host file
+This aims to redirect the routes https://keycloak to https://localhost
+
+```bash
+sudo nano /etc/hosts
+```
+
+and add an entry : 
+```
+127.0.0.1 keycloak
+```
+
+
+
+This aims to run all the containers under a secured connection (TLS). You first need to update the new variables, first go to both the [API](./packages/api/README.md) and the [WebAPP](./packages/webapp/README.md) to setup the SSL part documentation (espacially the certificates at the correct location).
+
+Build the application : 
+```shell
+yarn build
+```
 
 
 ```shell
@@ -74,10 +93,17 @@ docker-compose -f docker/docker-compose.prod.yml up
 
 This will start all the containers using HTTPS.
 
-However there are some issues : The token issued by the keycloak client (embleema-webapp) contains a property ISS that has to `https://localhost:8443/realms/embleema-iam`. On the API side, there is another client that validates a token (embleema-api).
+However there are some issues, the token validation (API -> Keycloak) returns a 401  despite the Allowed Origin (*) set up on Keycloak. That's why it is disabled in production.
 
-- Not able to validate the ISS because connecting to keycloak with "https://keycloak" would result to a different ISS comparaison : https://github.com/ferrerojosh/nest-keycloak-connect/issues/174
-- Not able to validate a custom SSL certificate
+
+
+
+Deployed environments :
+- https://localhost:443 (webapp)
+- https://localhost:3000 (api)
+- https://localhost:3000/doc (api doc)
+- https://localhost:8443 (keycloak admin)
+
 
 
 ### Run the tests

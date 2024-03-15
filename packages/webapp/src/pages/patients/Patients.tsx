@@ -40,7 +40,7 @@ export function Patients() {
   useEffect(() => {
     const initializePatients = async () => {
       const responsePatients = await get('/patients');
-  
+
       if (response.ok) {
         setPatients(responsePatients);
       }
