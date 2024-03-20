@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { PATIENT_MOCK } from '@test/mocks/patient';
-import { screen, render, fireEvent, findByTestId } from '@testing-library/react';
+import { screen, render, fireEvent } from '@testing-library/react';
 import { PatientCreationForm } from './PatientCreationForm';
 import userEvent from '@testing-library/user-event';
 

@@ -54,7 +54,7 @@ class BasePatient {
   @IsString()
   @IsNotEmpty()
   @Matches(/^\d{3}-\d{2}-\d{4}$/, {
-    message: 'socialSecurityId must follow the pattern XXX-XX-XXXX',
+    message: 'socialSecurityId must follow the pattern 111-22-3333',
   })
   public socialSecurityId!: string;
 

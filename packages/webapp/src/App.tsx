@@ -4,7 +4,6 @@ import { useAuth } from 'react-oidc-context';
 import { Patients } from './pages/patients/Patients';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { PatientCreation } from './pages/patient-creation/PatientCreation';
-import useFetch from 'use-http';
 
 function AppLoader({ children }: { children: React.ReactElement }) {
   const { isLoading, isAuthenticated, signinRedirect, user } = useAuth();
