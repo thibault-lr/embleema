@@ -1,66 +1,58 @@
 import React, { useState } from 'react';
-import { Snackbar, Typography } from '@mui/material';
+import { Box, IconButton, Snackbar, SnackbarProps, Typography } from '@mui/material';
 import { CreatePatientDto, Patient } from 'embleema-domain';
-import { PatientCreationForm } from './components/PatientCreationForm';
 
-import { useAuth } from 'react-oidc-context';
 import { useNavigate } from 'react-router-dom';
-import useFetch from 'use-http';
-import { readFromEnv } from '@src/utils/env';
 
-const API_URL = readFromEnv('VITE_EMBLEEMA_API_URL');
+import { PatientCreationForm } from './components/PatientCreationForm';
+import { useCustomFetch } from '@src/hooks/custom-fetch';
+
+type SnackbarState = Pick<SnackbarProps, 'open' | 'message'>;
 
 export function PatientCreation() {
-  const { user } = useAuth();
   const navigate = useNavigate();
+  const { post, response } = useCustomFetch<Patient>();
 
-  const { post, response } = useFetch<Patient[]>(API_URL, {
-    interceptors: {
-      request: ({ options }) => {
-        if (user?.access_token === undefined) {
-          throw new Error('Access token undefined');
-        }
-
-        const reqHeaders = new Headers(options.headers);
-
-        reqHeaders.set('Authorization', `Bearer ${user.access_token}`);
-
-        options.headers = reqHeaders;
-
-        return options;
-      },
-    },
-  });
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarState, setSnackbarState] = useState<SnackbarState>({ open: false, message: '' });
 
   const handleSubmit = async (patient: CreatePatientDto) => {
-    await post('/patients', patient);
-
-    if (response.ok) {
-      setSnackbarMessage('Patient created successfully!');
-      setOpenSnackbar(true);
-    }
-
     try {
-      setSnackbarMessage('Patient created successfully!');
-      setOpenSnackbar(true);
-      navigate('/');
+      await post('/patients', patient);
+
+      if (response.ok) {
+        setSnackbarState({ message: 'Patient created successfully!', open: true });
+        navigate('/');
+      } else {
+        setSnackbarState({ message: 'Failed to create patient.', open: true });
+      }
     } catch (error) {
-      setSnackbarMessage('Failed to create patient.');
-      setOpenSnackbar(true);
+      setSnackbarState({ message: 'Failed to create patient.', open: true });
     }
   };
 
   const handleCloseSnackbar = () => {
-    setOpenSnackbar(false);
+    setSnackbarState((prevState) => ({ ...prevState, open: false }));
+  };
+
+  const handleCloseButtonClick = () => {
+    navigate('/');
   };
 
   return (
-    <>
-      <Typography variant="h2"> New Patient </Typography>
+    <Box padding={1}>
+      <Box width="100%" display={'inline-flex'} justifyContent={'space-around'}>
+        <Typography variant="h2"> New Patient </Typography>
+        <IconButton edge="end" color="inherit" onClick={handleCloseButtonClick} aria-label="go back">
+          <Typography variant="h4"> X </Typography>
+        </IconButton>
+      </Box>
       <PatientCreationForm onSubmit={handleSubmit} />
-      <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message={snackbarMessage} />
-    </>
+      <Snackbar
+        open={snackbarState.open}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        message={snackbarState.message}
+      />
+    </Box>
   );
 }

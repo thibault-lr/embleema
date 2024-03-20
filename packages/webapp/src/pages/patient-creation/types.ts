@@ -8,12 +8,4 @@ export type CreatePatientFormDto = Omit<CreatePatientDto, 'usualPhysician' | 'us
   usualCareSiteAddress: string;
 };
 
-export interface CreatePatientFormError {
-  target: unknown;
-  value: unknown;
-  property: string;
-  children: CreatePatientFormError[];
-  constraints?: {
-    [key: string]: string;
-  };
-}
+export type CreatePatientFormErrorDto = { [K in keyof Required<CreatePatientFormDto>]: boolean };

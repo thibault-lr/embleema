@@ -1,6 +1,6 @@
 import { CreatePatientDto } from 'embleema-domain';
 import { pick } from 'lodash';
-import { CreatePatientFormDto } from '../pages/patient-creation/types';
+import { CreatePatientFormDto } from '../types';
 
 export namespace CreatePatientFormDtoMapper {
   export function fromCreatePatientFormDto(patientDto: CreatePatientFormDto): CreatePatientDto {

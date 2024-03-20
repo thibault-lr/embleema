@@ -2,16 +2,16 @@ import 'reflect-metadata';
 import React, { useCallback, useState } from 'react';
 import { Grid, Typography, TextField, MenuItem, Button, CardContent, Card } from '@mui/material';
 import { BloodTypeEnum, CreatePatientDto, PatientValidator, SexEnum } from 'embleema-domain';
-import { CreatePatientFormDtoMapper } from '../../../mappers/create-patient-form-dto.mapper';
-import { CreatePatientFormDto, CreatePatientFormError } from '../types';
+
+import { CreatePatientFormDtoMapper } from '../mappers/create-patient-form-dto.mapper';
+import { CreatePatientFormDto, CreatePatientFormErrorDto } from '../types';
+import { CreatePatientFormErrorDtoMapper } from '../mappers/create-patient-form-error-dto.mapper';
 
 type PatientCreationProps = {
   onSubmit: (patient: CreatePatientDto) => void;
 };
 
-type PatientCrationFormErrors = { [P in keyof CreatePatientFormDto]?: boolean };
-
-const initialState = {
+const PATIENT_CREATION_FORM_INITIAL_STATE = {
   firstName: '',
   lastName: '',
   socialSecurityId: '',
@@ -26,41 +26,61 @@ const initialState = {
   nextVisitDate: '',
 };
 
-export function PatientCreationForm({ onSubmit }: PatientCreationProps) {
-  const [errors, setErrors] = useState<PatientCrationFormErrors>({});
-  const [patient, setPatient] = useState<CreatePatientFormDto>(initialState);
+export const PATIENT_CREATION_FORM_ERRORS_INITIAL_STATE: CreatePatientFormErrorDto = {
+  firstName: false,
+  lastName: false,
+  socialSecurityId: false,
+  sex: false,
+  bloodType: false,
+  condition: false,
+  usualPhysicianTitle: false,
+  usualPhysicianFirstName: false,
+  usualPhysicianLastName: false,
+  usualCareSiteName: false,
+  usualCareSiteAddress: false,
+  nextVisitDate: false,
+};
 
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setPatient((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  }, []);
+export function PatientCreationForm({ onSubmit }: PatientCreationProps) {
+  const [patient, setPatient] = useState<CreatePatientFormDto>(PATIENT_CREATION_FORM_INITIAL_STATE);
+  const [errors, setErrors] = useState<CreatePatientFormErrorDto>(PATIENT_CREATION_FORM_ERRORS_INITIAL_STATE);
+
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = e.target;
+      setPatient((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+
+      if (value.length > 0) {
+        setErrors((prevState) => ({
+          ...prevState,
+          [name]: false,
+        }));
+      }
+    },
+    [patient, errors],
+  );
 
   const handleSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-
       try {
         const inputPatient = CreatePatientFormDtoMapper.fromCreatePatientFormDto(patient);
         const validatedPatient = PatientValidator.validatePatientEntity(CreatePatientDto, inputPatient);
-
         onSubmit(validatedPatient);
       } catch (formErrors) {
-        console.log(formErrors);
-        if (typeof formErrors === 'object' && formErrors !== null) {
-          const errors = formErrors as CreatePatientFormError[];
+        if (Array.isArray(formErrors)) {
+          const errors = CreatePatientFormErrorDtoMapper.fromFormErrors(formErrors);
 
-          const parsedErrors = errors.reduce((allErrors, { property }) => {
-            allErrors[property as keyof CreatePatientFormDto] = true;
-            return allErrors;
-          }, {} as PatientCrationFormErrors);
-          setErrors(parsedErrors);
+          setErrors((prevState) => ({ ...prevState, ...errors }));
+        } else {
+          throw formErrors;
         }
       }
     },
-    [patient, onSubmit],
+    [patient, errors],
   );
 
   return (
@@ -79,7 +99,7 @@ export function PatientCreationForm({ onSubmit }: PatientCreationProps) {
             name="sex"
             value={patient.sex}
             onChange={handleChange}
-            error={Boolean(errors.sex)}
+            error={errors.sex}
             helperText={errors.sex ? 'Sex is required' : undefined}
           >
             {Object.values(SexEnum).map((sex) => (
@@ -97,7 +117,7 @@ export function PatientCreationForm({ onSubmit }: PatientCreationProps) {
             name="firstName"
             value={patient.firstName}
             onChange={handleChange}
-            error={Boolean(errors.firstName)}
+            error={errors.firstName}
             helperText={errors.firstName ? 'First name is required' : undefined}
           />
         </Grid>
@@ -109,7 +129,7 @@ export function PatientCreationForm({ onSubmit }: PatientCreationProps) {
             name="lastName"
             value={patient.lastName}
             onChange={handleChange}
-            error={Boolean(errors.lastName)}
+            error={errors.lastName}
             helperText={errors.lastName ? 'Last name is required' : undefined}
           />
         </Grid>
@@ -121,7 +141,7 @@ export function PatientCreationForm({ onSubmit }: PatientCreationProps) {
             name="socialSecurityId"
             value={patient.socialSecurityId}
             onChange={handleChange}
-            error={Boolean(errors.socialSecurityId)}
+            error={errors.socialSecurityId}
             helperText={errors.socialSecurityId ? 'Social Security ID is required and format XXX-XX-XXXX' : undefined}
           />
         </Grid>
@@ -134,7 +154,7 @@ export function PatientCreationForm({ onSubmit }: PatientCreationProps) {
             name="bloodType"
             value={patient.bloodType}
             onChange={handleChange}
-            error={Boolean(errors.bloodType)}
+            error={errors.bloodType}
             helperText={errors.bloodType ? 'Blood type is required' : undefined}
           >
             {Object.values(BloodTypeEnum).map((bloodType) => (
@@ -152,7 +172,7 @@ export function PatientCreationForm({ onSubmit }: PatientCreationProps) {
             name="condition"
             value={patient.condition}
             onChange={handleChange}
-            error={Boolean(errors.condition)}
+            error={errors.condition}
             helperText={errors.condition ? 'Condition is required' : undefined}
           />
         </Grid>
@@ -172,7 +192,7 @@ export function PatientCreationForm({ onSubmit }: PatientCreationProps) {
                     name="usualPhysicianTitle"
                     value={patient.usualPhysicianTitle}
                     onChange={handleChange}
-                    error={Boolean(errors.usualPhysicianTitle)}
+                    error={errors.usualPhysicianTitle}
                     helperText={errors.usualPhysicianTitle ? 'Physician title is required' : undefined}
                   />
                 </Grid>
@@ -187,7 +207,7 @@ export function PatientCreationForm({ onSubmit }: PatientCreationProps) {
                     name="usualPhysicianFirstName"
                     value={patient.usualPhysicianFirstName}
                     onChange={handleChange}
-                    error={Boolean(errors.usualPhysicianFirstName)}
+                    error={errors.usualPhysicianFirstName}
                     helperText={errors.usualPhysicianFirstName ? 'Physician first name is required' : undefined}
                   />
                 </Grid>
@@ -202,7 +222,7 @@ export function PatientCreationForm({ onSubmit }: PatientCreationProps) {
                     name="usualPhysicianLastName"
                     value={patient.usualPhysicianLastName}
                     onChange={handleChange}
-                    error={Boolean(errors.usualPhysicianLastName)}
+                    error={errors.usualPhysicianLastName}
                     helperText={errors.usualPhysicianLastName ? 'Physician last name is required' : undefined}
                   />
                 </Grid>
@@ -223,7 +243,7 @@ export function PatientCreationForm({ onSubmit }: PatientCreationProps) {
                     name="usualCareSiteName"
                     value={patient.usualCareSiteName}
                     onChange={handleChange}
-                    error={Boolean(errors.usualCareSiteName)}
+                    error={errors.usualCareSiteName}
                     helperText={errors.usualCareSiteName ? 'Care site name is required' : undefined}
                   />
                 </Grid>
@@ -238,7 +258,7 @@ export function PatientCreationForm({ onSubmit }: PatientCreationProps) {
                     name="usualCareSiteAddress"
                     value={patient.usualCareSiteAddress}
                     onChange={handleChange}
-                    error={Boolean(errors.usualCareSiteAddress)}
+                    error={errors.usualCareSiteAddress}
                     helperText={errors.usualCareSiteAddress ? 'Care site address is required' : undefined}
                   />
                 </Grid>
@@ -256,7 +276,7 @@ export function PatientCreationForm({ onSubmit }: PatientCreationProps) {
             name="nextVisitDate"
             value={patient.nextVisitDate}
             onChange={handleChange}
-            error={Boolean(errors.nextVisitDate)}
+            error={errors.nextVisitDate}
             helperText={errors.nextVisitDate ? 'Next visit date is required' : undefined}
             InputLabelProps={{
               shrink: true,
