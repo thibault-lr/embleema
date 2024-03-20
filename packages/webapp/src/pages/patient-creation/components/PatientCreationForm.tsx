@@ -11,7 +11,6 @@ type PatientCreationProps = {
   onSubmit: (patient: CreatePatientDto) => void;
 };
 
-
 const PATIENT_CREATION_FORM_INITIAL_STATE = {
   firstName: '',
   lastName: '',
